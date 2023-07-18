@@ -49,16 +49,25 @@ func NewMigrateSQLResult() *MigrateSQLResult {
 	}
 }
 
-func (result *MigrateSQLResult) AppendUp(sql ...*SQLForTable) {
-	result.up = append(result.up, sql...)
+func (result *MigrateSQLResult) AppendUp(sqlList ...*SQLForTable) {
+	for _, sql := range sqlList {
+		if sql != nil {
+			result.up = append(result.up, sql)
+		}
+	}
 }
 
 func (result *MigrateSQLResult) Up() map[string][]string {
 	return result.up.ToMap()
 }
 
-func (result *MigrateSQLResult) AppendDown(sql ...*SQLForTable) {
-	result.down = append(result.down, sql...)
+func (result *MigrateSQLResult) AppendDown(sqlList ...*SQLForTable) {
+	for _, sql := range sqlList {
+		if sql != nil {
+			result.down = append(result.down, sql)
+		}
+	}
+
 }
 
 func (result *MigrateSQLResult) Down() map[string][]string {
